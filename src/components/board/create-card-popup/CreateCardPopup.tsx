@@ -34,7 +34,7 @@ export default function CreateCardPopup({ close }: CreateCardPopupProps) {
                 <div onClick={close}>🗙</div>
             </div>
 
-            <form>
+            <form onSubmit={formik.handleSubmit}>
                 <div className="input-field">
                     <TextField name="title" label="Title"
                                onChange={formik.handleChange}
