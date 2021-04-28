@@ -1,0 +1,30 @@
+.card {
+  background-color: white;
+  border-radius: 4px;
+  width: 300px;
+  padding: 2rem;
+  cursor: move;
+  user-select: none;
+
+  .card-title {
+    font-weight: 500;
+    font-size: 1.25rem;
+  }
+
+  .id-and-user {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 2rem;
+    .card-id {
+      color: gray;
+    }
+    .user-circle {
+      font-size: 1.5rem;
+      border-radius: 8rem;
+      background-color: #0e7d32;
+      color: white;
+      padding: 0.5rem;
+    }
+  }
+}
