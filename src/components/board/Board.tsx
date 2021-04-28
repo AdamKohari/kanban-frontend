@@ -1,9 +1,18 @@
 import './Board.scss';
 import Card from "./card/Card";
-import {Button} from "@material-ui/core";
-import {GreenButtonStyle} from "../../shared-components/contants";
+import {Button, Modal} from "@material-ui/core";
+import {DragDropContext} from 'react-beautiful-dnd';
+import {useState, Fragment} from "react";
+import CreateCardPopup from "./create-card-popup/CreateCardPopup";
 
 export default function Board() {
+
+    const [modalOpen, setModalOpen] = useState(false);
+
+    const onDragEnd = (result: any) => {
+      console.log(result);
+    };
+
     return (
         <div className="board-div">
             <div className="board-content">
@@ -13,30 +22,40 @@ export default function Board() {
                     <h1>Done</h1>
                 </div>
 
-                <div className="table-section">
-                    <div>
+                <DragDropContext onDragEnd={onDragEnd}>
+                    <div className="table-section">
+                        <div>
+                            <div className="vertical-card-holder">
+                                <Card />
+                                <Card />
+                                <Card />
+                                <Card />
+                                <Card />
+                            </div>
+                            <div className="plus-button-holder">
+                                <Button variant="contained"
+                                        onClick={() => setModalOpen(true)}
+                                        className="green-button">+ Add New</Button>
+                            </div>
+                        </div>
                         <div className="vertical-card-holder">
                             <Card />
                             <Card />
                             <Card />
                             <Card />
+                        </div>
+                        <div className="vertical-card-holder">
                             <Card />
                         </div>
-                        <div className="plus-button-holder">
-                            <Button variant="contained" style={GreenButtonStyle}>+ Add New</Button>
-                        </div>
                     </div>
-                    <div className="vertical-card-holder">
-                        <Card />
-                        <Card />
-                        <Card />
-                        <Card />
-                    </div>
-                    <div className="vertical-card-holder">
-                        <Card />
-                    </div>
-                </div>
+                </DragDropContext>
             </div>
+
+            <Modal open={modalOpen} onClose={() => setModalOpen(false)}>
+                {<Fragment>
+                    <CreateCardPopup close={() => setModalOpen(false)}/>
+                </Fragment>}
+            </Modal>
         </div>
     );
 }

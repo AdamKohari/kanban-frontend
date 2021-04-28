@@ -1,0 +1,37 @@
+.create-card-popup {
+  background-color: white;
+  position: relative;
+  left: 50%;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  width: fit-content;
+  padding: 1.5rem;
+  max-height: 100vh;
+  min-width: 800px;
+  overflow-y: auto;
+  max-width: 85vw;
+  border-radius: 4px;
+  animation: grow 0.5s ease-in-out;
+  .header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+    div {
+      font-size: 1.75rem;
+      margin-top: -1rem;
+      margin-right: -0.5rem;
+      cursor: pointer;
+    }
+    div:hover {
+      color: #0e7d32;
+    }
+  }
+  .input-field {
+    margin: 1rem 0;
+  }
+}
+
+@keyframes grow {
+  0% {opacity: 0}
+  100% {opacity: 1}
+}
