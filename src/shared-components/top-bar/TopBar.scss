@@ -11,3 +11,12 @@
     margin-left: 1.5rem;
   }
 }
+.hamburger-menu-item {
+  display: flex;
+  align-items: center;
+  font-size: 1.25rem;
+  padding: 0.5rem;
+  svg {
+    margin-right: 12px;
+  }
+}

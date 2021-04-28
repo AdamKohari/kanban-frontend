@@ -26,7 +26,7 @@ function App() {
                     </Route>
 
                     <Route path="/manager">
-                        Board selector, creator, other people adder
+                        Board selector, creator
                     </Route>
                 </Switch>
             </BrowserRouter>
