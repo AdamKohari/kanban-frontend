@@ -4,8 +4,10 @@ import {useFormik} from "formik";
 import * as Yup from "yup";
 import {useState, Fragment} from "react";
 import {AddCircleRounded, DeleteRounded} from "@material-ui/icons";
+import {useHistory} from "react-router-dom";
 
 export default function Manager() {
+    const history = useHistory();
     const [emailArray, setEmailArray] = useState([0]);
     const formik = useFormik({
         initialValues: {
@@ -54,14 +56,23 @@ export default function Manager() {
         </div>
     ));
 
+    const mockedProjects = [
+        {id: 0, shortName: 'kanbanment', name: 'Kanban Board Mentoring Project'},
+        {id: 1, shortName: 'trackyou', name: 'Tracking Mobile WebApp'}
+    ]
+
+    const projects = mockedProjects.map(project => (
+        <div className="project-card" onClick={() => history.push('/board/' + project.id + '-' + project.shortName)}>
+            <div>{project.name}</div>
+            <div className="proj-id">#{project.shortName.toUpperCase()}</div>
+        </div>
+    ));
+
     return (
         <div className="manager">
             <div className="your-projects">
                 <h1>Select an existing project</h1>
-                <div className="project-card">
-                    <div>Kanban Board Mentoring Project</div>
-                    <div className="proj-id">#KANBANMENT</div>
-                </div>
+                {projects}
             </div>
 
             <h1>OR</h1>
