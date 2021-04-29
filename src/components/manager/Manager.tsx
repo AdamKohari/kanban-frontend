@@ -62,7 +62,8 @@ export default function Manager() {
     ]
 
     const projects = mockedProjects.map(project => (
-        <div className="project-card" onClick={() => history.push('/board/' + project.id + '-' + project.shortName)}>
+        <div className="project-card" key={project.id}
+             onClick={() => history.push('/board/' + project.id + '-' + project.shortName)}>
             <div>{project.name}</div>
             <div className="proj-id">#{project.shortName.toUpperCase()}</div>
         </div>

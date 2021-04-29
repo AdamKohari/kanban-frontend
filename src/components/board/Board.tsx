@@ -15,6 +15,12 @@ export default function Board() {
       console.log(result);
     };
 
+    const mockedCardData = {
+        title: 'Example Card',
+        id: 'PROJ-001',
+        user: 'Adam Kohari'
+    }
+
     return (
         <div className="board-div">
             <div className="board-content">
@@ -28,11 +34,11 @@ export default function Board() {
                     <div className="table-section">
                         <div>
                             <div className="vertical-card-holder">
-                                <Card />
-                                <Card />
-                                <Card />
-                                <Card />
-                                <Card />
+                                <Card cardData={mockedCardData}/>
+                                <Card cardData={mockedCardData}/>
+                                <Card cardData={mockedCardData}/>
+                                <Card cardData={mockedCardData}/>
+                                <Card cardData={mockedCardData}/>
                             </div>
                             <div className="plus-button-holder">
                                 <Button variant="contained"
@@ -41,13 +47,13 @@ export default function Board() {
                             </div>
                         </div>
                         <div className="vertical-card-holder">
-                            <Card />
-                            <Card />
-                            <Card />
-                            <Card />
+                            <Card cardData={mockedCardData}/>
+                            <Card cardData={mockedCardData}/>
+                            <Card cardData={mockedCardData}/>
+                            <Card cardData={mockedCardData}/>
                         </div>
                         <div className="vertical-card-holder">
-                            <Card />
+                            <Card cardData={mockedCardData}/>
                         </div>
                     </div>
                 </DragDropContext>
