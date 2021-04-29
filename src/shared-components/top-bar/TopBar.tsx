@@ -25,7 +25,7 @@ export default function TopBar({place}: TopBarProps) {
 
         switch (button) {
             case 'MANAGER': {
-                history.push('manager');
+                history.push('../manager');
                 break;
             }
             case 'EDIT_TEAM': {
