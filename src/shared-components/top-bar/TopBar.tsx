@@ -7,46 +7,76 @@ import {useState, MouseEvent} from "react";
 import TableChartIcon from '@material-ui/icons/TableChart';
 import GroupIcon from '@material-ui/icons/Group';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import { useHistory } from 'react-router-dom';
 
-export default function TopBar() {
+type TopBarProps = {
+    place: string
+}
+export default function TopBar({place}: TopBarProps) {
+    const history = useHistory();
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
-    const handleMenuClick = (event: MouseEvent<HTMLButtonElement>) => {
+    const handleHamburgerClick = (event: MouseEvent<HTMLButtonElement>) => {
         setAnchorEl(event.currentTarget);
     };
-    const handleMenuClose = () => {
+    const handleMenuClose = (button: string) => {
         setAnchorEl(null);
+        if (button === 'CLOSE') return;
+
+        switch (button) {
+            case 'MANAGER': {
+                history.push('manager');
+                break;
+            }
+            case 'EDIT_TEAM': {
+                break;
+            }
+            case 'LOGOUT': {
+                break;
+            }
+        }
     };
+
+    function getTitle(): string {
+        switch (place) {
+            case 'BOARD': return 'Example Project';
+            case 'MANAGER': return 'Manage Your Projects'
+            default: return 'Kanban Board'
+        }
+    }
 
     return (
         <div className="top-bar">
             <div className="hamburger-button">
-                <IconButton edge="start" style={{color: 'white'}} onClick={handleMenuClick}>
+                <IconButton edge="start" style={{color: 'white'}} onClick={handleHamburgerClick}>
                     <Menu />
                 </IconButton>
             </div>
-            <h2>
-                Example Project
-            </h2>
+            <h2>{getTitle()}</h2>
             <MenuCont
                 id="simple-menu"
                 anchorEl={anchorEl}
                 keepMounted
                 open={Boolean(anchorEl)}
-                onClose={handleMenuClose}>
-                <MenuItem onClick={handleMenuClose}>
+                onClose={() => handleMenuClose('CLOSE')}>
+
+                { place === 'BOARD' &&
+                <MenuItem onClick={() => handleMenuClose('MANAGER')}>
                     <div className="hamburger-menu-item">
                         <TableChartIcon />
                         My Projects
                     </div>
-                </MenuItem>
-                <MenuItem onClick={handleMenuClose}>
+                </MenuItem>}
+
+                { place === 'BOARD' &&
+                <MenuItem onClick={() => handleMenuClose('EDIT_TEAM')}>
                     <div className="hamburger-menu-item">
                         <GroupIcon />
                         Edit Team
                     </div>
-                </MenuItem>
-                <MenuItem onClick={handleMenuClose}>
+                </MenuItem>}
+
+                <MenuItem onClick={() => handleMenuClose('LOGOUT')}>
                     <div className="hamburger-menu-item">
                         <ExitToAppIcon />
                         Logout

@@ -5,6 +5,9 @@ import "react-toastify/dist/ReactToastify.css";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 import Board from "./components/board/Board";
 import TopBar from "./shared-components/top-bar/TopBar";
+import Login from "./components/login/Login";
+import Register from "./components/register/Register";
+import Manager from "./components/manager/Manager";
 
 function App() {
     return (
@@ -13,20 +16,21 @@ function App() {
             <BrowserRouter>
                 <Switch>
                     <Route path="//">
-                        Login
+                        <Login />
                     </Route>
 
                     <Route path="/register">
-                        Register
+                        <Register />
                     </Route>
 
                     <Route path="/board/:id">
-                        <TopBar />
+                        <TopBar place="BOARD" />
                         <Board />
                     </Route>
 
                     <Route path="/manager">
-                        Board selector, creator
+                        <TopBar place="MANAGER" />
+                        <Manager />
                     </Route>
                 </Switch>
             </BrowserRouter>
