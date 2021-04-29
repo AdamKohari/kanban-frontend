@@ -40,7 +40,7 @@ export default function TopBar({place}: TopBarProps) {
     function getTitle(): string {
         switch (place) {
             case 'BOARD': return 'Example Project';
-            case 'MANAGER': return 'Manage Your Projects'
+            case 'MANAGER': return 'Your Projects'
             default: return 'Kanban Board'
         }
     }
