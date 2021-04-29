@@ -4,10 +4,12 @@ import {Button, Modal} from "@material-ui/core";
 import {DragDropContext} from 'react-beautiful-dnd';
 import {useState, Fragment} from "react";
 import CreateCardPopup from "./create-card-popup/CreateCardPopup";
+import CardDetailsPopup from "./card-details-popup/CardDetailsPopup";
 
 export default function Board() {
 
-    const [modalOpen, setModalOpen] = useState(false);
+    const [newCardModalOpen, setNewCardModalOpen] = useState(false);
+    const [cardDetailsModalOpen, setCardDetailsModalOpen] = useState(false);
 
     const onDragEnd = (result: any) => {
       console.log(result);
@@ -34,7 +36,7 @@ export default function Board() {
                             </div>
                             <div className="plus-button-holder">
                                 <Button variant="contained"
-                                        onClick={() => setModalOpen(true)}
+                                        onClick={() => setNewCardModalOpen(true)}
                                         className="green-button">+ Add New</Button>
                             </div>
                         </div>
@@ -51,9 +53,15 @@ export default function Board() {
                 </DragDropContext>
             </div>
 
-            <Modal open={modalOpen} onClose={() => setModalOpen(false)}>
+            <Modal open={newCardModalOpen} onClose={() => setNewCardModalOpen(false)}>
                 {<Fragment>
-                    <CreateCardPopup close={() => setModalOpen(false)}/>
+                    <CreateCardPopup close={() => setNewCardModalOpen(false)}/>
+                </Fragment>}
+            </Modal>
+
+            <Modal open={cardDetailsModalOpen} onClose={() => setCardDetailsModalOpen(false)}>
+                {<Fragment>
+                    <CardDetailsPopup close={() => setCardDetailsModalOpen(false)}/>
                 </Fragment>}
             </Modal>
         </div>
