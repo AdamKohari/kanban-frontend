@@ -28,7 +28,7 @@ export default function CreateCardPopup({ close }: CreateCardPopupProps) {
 
 
     return (
-        <div className="create-card-popup">
+        <div className="create-card-popup popup">
             <div className="header">
                 <h2>Create a new task</h2>
                 <div onClick={close}>🗙</div>
