@@ -7,7 +7,8 @@ export type Person = {
 export type Card = {
     title: string,
     id: string,
-    user: string
+    user: string,
+    desc: string
 }
 export type Project = {
     id: number,
@@ -21,7 +22,7 @@ export type AppState = {
         currentBoard: {
             addedPeople: Person[],
             cols: {
-                todo: Card[],
+                toDo: Card[],
                 inProgress: Card[],
                 done: Card[]
             }
@@ -38,7 +39,7 @@ const initState = {
             {name: 'Bela Kiss', email: 'ssdd@kjd.com'}
         ],
         cols: {
-            toDo: [{title: 'Example Card', id: 'TEST-001', user: 'Adam Kohari'}],
+            toDo: [{title: 'Example Card', id: 'TEST-001', user: 'Adam Kohari', desc: 'Some text'}],
             inProgress: [],
             done: []
         }

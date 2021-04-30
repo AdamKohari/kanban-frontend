@@ -5,21 +5,17 @@ import {DragDropContext} from 'react-beautiful-dnd';
 import {useState, Fragment} from "react";
 import CreateCardPopup from "./create-card-popup/CreateCardPopup";
 import CardDetailsPopup from "./card-details-popup/CardDetailsPopup";
+import {useStore} from "../../redux/UseStore";
 
 export default function Board() {
 
+    const [state] = useStore();
     const [newCardModalOpen, setNewCardModalOpen] = useState(false);
     const [cardDetailsModalOpen, setCardDetailsModalOpen] = useState(false);
 
     const onDragEnd = (result: any) => {
       console.log(result);
     };
-
-    const mockedCardData = {
-        title: 'Example Card',
-        id: 'PROJ-001',
-        user: 'Adam Kohari'
-    }
 
     return (
         <div className="board-div">
@@ -34,11 +30,9 @@ export default function Board() {
                     <div className="table-section">
                         <div>
                             <div className="vertical-card-holder">
-                                <Card cardData={mockedCardData}/>
-                                <Card cardData={mockedCardData}/>
-                                <Card cardData={mockedCardData}/>
-                                <Card cardData={mockedCardData}/>
-                                <Card cardData={mockedCardData}/>
+                                {state.kanban.currentBoard.cols.toDo.map(card => (
+                                    <Card cardData={card}/>
+                                ))}
                             </div>
                             <div className="plus-button-holder">
                                 <Button variant="contained"
@@ -47,13 +41,14 @@ export default function Board() {
                             </div>
                         </div>
                         <div className="vertical-card-holder">
-                            <Card cardData={mockedCardData}/>
-                            <Card cardData={mockedCardData}/>
-                            <Card cardData={mockedCardData}/>
-                            <Card cardData={mockedCardData}/>
+                            {state.kanban.currentBoard.cols.inProgress.map(card => (
+                                <Card cardData={card}/>
+                            ))}
                         </div>
                         <div className="vertical-card-holder">
-                            <Card cardData={mockedCardData}/>
+                            {state.kanban.currentBoard.cols.done.map(card => (
+                                <Card cardData={card}/>
+                            ))}
                         </div>
                     </div>
                 </DragDropContext>

@@ -64,6 +64,7 @@ export default function CreateCardPopup({ close }: CreateCardPopupProps) {
                     {formik.errors.desc}
                 </div>}
 
+                <div>Assigned to:</div>
                 <div className="input-field">
                     <Select variant="outlined" fullWidth={true} value={formik.values.person}
                             onBlur={formik.handleBlur}
@@ -73,6 +74,10 @@ export default function CreateCardPopup({ close }: CreateCardPopupProps) {
                         ))}
                     </Select>
                 </div>
+                { formik.touched.person && formik.errors.person &&
+                <div className="validation-error">
+                    {formik.errors.person}
+                </div>}
 
                 <div className="action-button">
                     <Button variant="contained"
