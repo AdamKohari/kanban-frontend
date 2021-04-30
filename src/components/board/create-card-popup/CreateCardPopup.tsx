@@ -2,16 +2,19 @@ import './CreateCardPopup.scss';
 import {Button, MenuItem, Select, TextField} from "@material-ui/core";
 import {useFormik} from "formik";
 import * as Yup from 'yup';
+import {useStore} from "../../../redux/UseStore";
+import {Person} from "../../../redux/reducers";
 
 type CreateCardPopupProps = {
     close: () => void
 }
 export default function CreateCardPopup({ close }: CreateCardPopupProps) {
+    const [state] = useStore();
     const formik = useFormik({
         initialValues: {
             title: '',
             desc: '',
-            person: 'SELF'
+            person: ''
         },
 
         onSubmit: (values) => {
@@ -22,7 +25,9 @@ export default function CreateCardPopup({ close }: CreateCardPopupProps) {
             title: Yup.string()
                 .required('Title is required'),
             desc: Yup.string()
-                .required('Description is required!')
+                .required('Description is required'),
+            person: Yup.string()
+                .required('You have to assign this card to someone!')
         })
     });
 
@@ -63,7 +68,9 @@ export default function CreateCardPopup({ close }: CreateCardPopupProps) {
                     <Select variant="outlined" fullWidth={true} value={formik.values.person}
                             onBlur={formik.handleBlur}
                             onChange={formik.handleChange} name="person">
-                        <MenuItem value="SELF">Adam</MenuItem>
+                        {state.kanban.currentBoard.addedPeople.map((person: Person) => (
+                            <MenuItem key={person.email} value={person.email}>{person.name} ({person.email})</MenuItem>
+                        ))}
                     </Select>
                 </div>
 

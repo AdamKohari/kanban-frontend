@@ -14,7 +14,7 @@ type TopBarProps = {
     place: string
 }
 export default function TopBar({place}: TopBarProps) {
-    const [state, dispatch] = useStore();
+    const [state] = useStore();
     const history = useHistory();
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 

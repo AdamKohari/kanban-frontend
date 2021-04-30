@@ -5,9 +5,12 @@ import * as Yup from "yup";
 import {useState, Fragment} from "react";
 import {AddCircleRounded, DeleteRounded} from "@material-ui/icons";
 import {useHistory} from "react-router-dom";
+import {useStore} from "../../redux/UseStore";
+import {projectSelected} from "../../redux/actions";
 
 export default function Manager() {
     const history = useHistory();
+    const [state, dispatch] = useStore();
     const [emailArray, setEmailArray] = useState([0]);
     const formik = useFormik({
         initialValues: {
@@ -27,6 +30,12 @@ export default function Manager() {
                 .max(10, 'Short name can be 10 characters long only!')
         })
     });
+
+    const projectClicked = (project: any) => {
+        history.push('/board/' + project.id + '-' + project.shortName);
+        dispatch(projectSelected(project));
+
+    };
 
     const deleteInputRow = (id: number) => {
         const emailArrayCopy = emailArray.slice();
@@ -56,14 +65,9 @@ export default function Manager() {
         </div>
     ));
 
-    const mockedProjects = [
-        {id: 0, shortName: 'kanbanment', name: 'Kanban Board Mentoring Project'},
-        {id: 1, shortName: 'trackyou', name: 'Tracking Mobile WebApp'}
-    ];
-
-    const projects = mockedProjects.map(project => (
+    const projects = state.kanban.ownedProjects.map(project => (
         <div className="project-card" key={project.id}
-             onClick={() => history.push('/board/' + project.id + '-' + project.shortName)}>
+             onClick={() => projectClicked(project)}>
             <div>{project.name}</div>
             <div className="proj-id">#{project.shortName.toUpperCase()}</div>
         </div>
