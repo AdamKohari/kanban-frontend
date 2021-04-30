@@ -8,11 +8,13 @@ import TableChartIcon from '@material-ui/icons/TableChart';
 import GroupIcon from '@material-ui/icons/Group';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { useHistory } from 'react-router-dom';
+import {useStore} from "../../redux/UseStore";
 
 type TopBarProps = {
     place: string
 }
 export default function TopBar({place}: TopBarProps) {
+    const [state, dispatch] = useStore();
     const history = useHistory();
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
@@ -41,7 +43,7 @@ export default function TopBar({place}: TopBarProps) {
 
     function getTitle(): string {
         switch (place) {
-            case 'BOARD': return 'Example Project';
+            case 'BOARD': return state.kanban.currentBoardName;
             case 'MANAGER': return 'Your Projects'
             default: return 'Kanban Board'
         }
