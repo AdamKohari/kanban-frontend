@@ -6,16 +6,23 @@ import {useState, Fragment} from "react";
 import CreateCardPopup from "./create-card-popup/CreateCardPopup";
 import CardDetailsPopup from "./card-details-popup/CardDetailsPopup";
 import {useStore} from "../../redux/UseStore";
+import {CardData} from '../../redux/reducers';
 
 export default function Board() {
 
     const [state] = useStore();
     const [newCardModalOpen, setNewCardModalOpen] = useState(false);
     const [cardDetailsModalOpen, setCardDetailsModalOpen] = useState(false);
+    const [clickedCardData, setClickedCardData] = useState({} as CardData);
 
     const onDragEnd = (result: any) => {
       console.log(result);
     };
+
+    function openDetails(card: CardData) {
+        setClickedCardData(card);
+        setCardDetailsModalOpen(true);
+    }
 
     return (
         <div className="board-div">
@@ -31,7 +38,7 @@ export default function Board() {
                         <div>
                             <div className="vertical-card-holder">
                                 {state.kanban.currentBoard.cols.toDo.map(card => (
-                                    <Card cardData={card}/>
+                                    <Card cardData={card} onClick={() => openDetails(card)}/>
                                 ))}
                             </div>
                             <div className="plus-button-holder">
@@ -42,12 +49,12 @@ export default function Board() {
                         </div>
                         <div className="vertical-card-holder">
                             {state.kanban.currentBoard.cols.inProgress.map(card => (
-                                <Card cardData={card}/>
+                                <Card cardData={card} onClick={() => openDetails(card)}/>
                             ))}
                         </div>
                         <div className="vertical-card-holder">
                             {state.kanban.currentBoard.cols.done.map(card => (
-                                <Card cardData={card}/>
+                                <Card cardData={card} onClick={() => openDetails(card)}/>
                             ))}
                         </div>
                     </div>
@@ -62,7 +69,9 @@ export default function Board() {
 
             <Modal open={cardDetailsModalOpen} onClose={() => setCardDetailsModalOpen(false)}>
                 {<Fragment>
-                    <CardDetailsPopup close={() => setCardDetailsModalOpen(false)}/>
+                    <CardDetailsPopup
+                        cardData={clickedCardData}
+                        close={() => setCardDetailsModalOpen(false)}/>
                 </Fragment>}
             </Modal>
         </div>

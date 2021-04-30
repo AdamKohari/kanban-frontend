@@ -4,7 +4,7 @@ export type Person = {
     name: string,
     email: string
 }
-export type Card = {
+export type CardData = {
     title: string,
     id: string,
     user: string,
@@ -22,9 +22,9 @@ export type AppState = {
         currentBoard: {
             addedPeople: Person[],
             cols: {
-                toDo: Card[],
-                inProgress: Card[],
-                done: Card[]
+                toDo: CardData[],
+                inProgress: CardData[],
+                done: CardData[]
             }
         },
         ownedProjects: Project[]
