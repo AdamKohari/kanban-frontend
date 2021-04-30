@@ -59,7 +59,7 @@ export default function Manager() {
     const mockedProjects = [
         {id: 0, shortName: 'kanbanment', name: 'Kanban Board Mentoring Project'},
         {id: 1, shortName: 'trackyou', name: 'Tracking Mobile WebApp'}
-    ]
+    ];
 
     const projects = mockedProjects.map(project => (
         <div className="project-card" key={project.id}
@@ -73,7 +73,10 @@ export default function Manager() {
         <div className="manager">
             <div className="your-projects">
                 <h1>Select an existing project</h1>
-                {projects}
+                {projects.length !== 0
+                    ? projects
+                    : <div>You haven't created a project yet. Create one below, or ask for invitation to an existing one.</div>
+                }
             </div>
 
             <h1>OR</h1>

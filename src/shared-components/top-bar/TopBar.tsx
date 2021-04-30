@@ -32,6 +32,8 @@ export default function TopBar({place}: TopBarProps) {
                 break;
             }
             case 'LOGOUT': {
+                sessionStorage.clear();
+                history.push('');
                 break;
             }
         }
