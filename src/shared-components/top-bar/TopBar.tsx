@@ -76,7 +76,7 @@ export default function TopBar({place}: TopBarProps) {
                 <MenuItem onClick={() => handleMenuClose('EDIT_TEAM')}>
                     <div className="hamburger-menu-item">
                         <GroupIcon />
-                        Edit Team
+                        Edit Team (Soon)
                     </div>
                 </MenuItem>}
 

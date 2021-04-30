@@ -31,9 +31,14 @@
   justify-content: space-between;
   > h1 {
     width: 18.75rem;
-    text-align: center;
   }
   padding-bottom: 1rem;
+  .todo-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 18.75rem;
+  }
 }
 .table-section {
   display: flex;
@@ -41,15 +46,8 @@
 }
 
 .vertical-card-holder {
-  max-height: 70vh;
-  overflow-y: auto;
-  > .card {
-    margin-bottom: 1rem;
-  }
-}
-
-.plus-button-holder {
-  display: flex;
-  justify-content: center;
-  margin-top: 1rem;
+  width: 18.75rem;
+  min-height: 50vh;
+  border: 1px solid gray;
+  border-radius: 4px;
 }
