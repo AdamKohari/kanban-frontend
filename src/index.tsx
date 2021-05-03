@@ -4,9 +4,10 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {Provider} from "react-redux";
-import {configureStore} from "./redux/store";
+import {configureStore, runSaga} from "./redux/store";
 
 const store = configureStore();
+runSaga();
 
 ReactDOM.render(
   <React.StrictMode>

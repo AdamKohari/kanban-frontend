@@ -1,4 +1,4 @@
-import {MOVE_CARD, myAction, PROJECT_SELECTED} from "./actions";
+import {GET_USER_DATA_SUCCESS, MOVE_CARD, MyAction, PROJECT_SELECTED} from "./actions";
 
 export type Person = {
     name: string,
@@ -56,7 +56,7 @@ const initState = {
     ]
 };
 
-export const kanban = (state = initState, action: myAction) => {
+export const kanban = (state = initState, action: MyAction) => {
     const {type, payload} = action;
 
     switch(type) {
@@ -95,7 +95,12 @@ export const kanban = (state = initState, action: myAction) => {
                         [destCol]: destColCopy
                     }
                 }
-            }
+            };
+        }
+        case GET_USER_DATA_SUCCESS: {
+            return {
+                ...state
+            };
         }
         default: return state;
     }
