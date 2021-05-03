@@ -3,13 +3,10 @@ import {useFormik} from "formik";
 import * as Yup from 'yup';
 import {Button, CircularProgress, TextField} from "@material-ui/core";
 import {Link} from 'react-router-dom';
-import {useStore} from "../../redux/UseStore";
-import {getUserData} from "../../redux/actions";
 
 export default function Login () {
     // TODO Redux
     const loginLoading = false;
-    const [state, dispatch] = useStore();
 
     const formik = useFormik({
         initialValues: {
@@ -19,7 +16,6 @@ export default function Login () {
 
         onSubmit: (values) => {
             console.log(values);
-            dispatch(getUserData());
         },
 
         validationSchema: Yup.object({
