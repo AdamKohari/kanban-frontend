@@ -32,7 +32,7 @@ export default function Manager() {
     });
 
     const projectClicked = (project: any) => {
-        history.push('/board/' + project.id + '-' + project.shortName);
+        history.push('/board/' + project.id);
         dispatch(projectSelected(project));
 
     };
