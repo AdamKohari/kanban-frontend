@@ -2,11 +2,12 @@ import './Login.scss';
 import {useFormik} from "formik";
 import * as Yup from 'yup';
 import {Button, CircularProgress, TextField} from "@material-ui/core";
-import {Link} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
+import {useStore} from "../../redux/UseStore";
+import {login} from "../../redux/actions";
 
 export default function Login () {
-    // TODO Redux
-    const loginLoading = false;
+    const [state, dispatch] = useStore();
 
     const formik = useFormik({
         initialValues: {
@@ -15,7 +16,7 @@ export default function Login () {
         },
 
         onSubmit: (values) => {
-            console.log(values);
+            dispatch(login(values.email, values.password));
         },
 
         validationSchema: Yup.object({
@@ -59,7 +60,7 @@ export default function Login () {
                             {formik.errors.password}
                         </div>}
 
-                        {loginLoading
+                        {state.kanban.app.loading
                             ?   <div className="loading-small">
                                 <CircularProgress variant="indeterminate" size={30} />
                             </div>
@@ -75,6 +76,7 @@ export default function Login () {
                     </div>
                 </div>
             </div>
+            {state.kanban.app.authed && <Redirect to="/manager" />}
         </div>
     );
 }

@@ -1,4 +1,4 @@
-import {GET_USER_DATA_SUCCESS, MOVE_CARD, MyAction, PROJECT_SELECTED} from "./actions";
+import {LOADING_END, LOADING_START, LOGIN_SUCCESS, MOVE_CARD, MyAction, PROJECT_SELECTED} from "./actions";
 
 export type Person = {
     name: string,
@@ -17,6 +17,10 @@ export type Project = {
 }
 export type AppState = {
     kanban: {
+        app: {
+            authed: boolean,
+            loading: boolean
+        }
         currentBoardName: string,
         currentBoardId: number,
         currentBoard: {
@@ -31,6 +35,10 @@ export type AppState = {
     }
 }
 const initState = {
+    app: {
+        authed: false,
+        loading: false
+    },
     currentBoardName: '',
     currentBoardId: 0,
     currentBoard: {
@@ -60,6 +68,33 @@ export const kanban = (state = initState, action: MyAction) => {
     const {type, payload} = action;
 
     switch(type) {
+        case LOADING_START: {
+            return {
+                ...state,
+                app: {
+                    ...state.app,
+                    loading: true
+                }
+            }
+        }
+        case LOADING_END: {
+            return {
+                ...state,
+                app: {
+                    ...state.app,
+                    loading: false
+                }
+            }
+        }
+        case LOGIN_SUCCESS: {
+            return {
+                ...state,
+                app: {
+                    ...state.app,
+                    authed: true
+                }
+            }
+        }
         case PROJECT_SELECTED: {
             const project = payload as Project;
             return {
@@ -95,11 +130,6 @@ export const kanban = (state = initState, action: MyAction) => {
                         [destCol]: destColCopy
                     }
                 }
-            };
-        }
-        case GET_USER_DATA_SUCCESS: {
-            return {
-                ...state
             };
         }
         default: return state;
