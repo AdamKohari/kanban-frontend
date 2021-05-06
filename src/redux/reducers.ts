@@ -67,10 +67,7 @@ const initState = {
             done: []
         }
     },
-    ownedProjects: [
-        {id: 0, shortName: 'kanbanment', name: 'Kanban Board Mentoring Project'},
-        {id: 1, shortName: 'trackyou', name: 'Tracking Mobile WebApp'}
-    ]
+    ownedProjects: []
 };
 
 export const kanban = (state = initState, action: MyAction) => {
@@ -115,7 +112,8 @@ export const kanban = (state = initState, action: MyAction) => {
         }
         case GET_USER_DATA_SUCCESS: {
             return {
-                ...state
+                ...state,
+                ownedProjects: payload
             }
         }
         case PROJECT_SELECTED: {

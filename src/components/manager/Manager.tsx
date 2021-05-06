@@ -6,7 +6,7 @@ import {useState, Fragment, useEffect} from "react";
 import {AddCircleRounded, DeleteRounded} from "@material-ui/icons";
 import {useHistory} from "react-router-dom";
 import {useStore} from "../../redux/UseStore";
-import {getUserData, projectSelected} from "../../redux/actions";
+import {createProject, getUserData, projectSelected} from "../../redux/actions";
 
 export default function Manager() {
     const history = useHistory();
@@ -18,8 +18,18 @@ export default function Manager() {
             shortName: ''
         },
 
-        onSubmit: (values) => {
-            console.log(values);
+        onSubmit: (values: any) => {
+            dispatch(createProject({
+                name: values.name,
+                shortName: values.shortName,
+                emails: Object.keys(values).reduce((prev: any, curr: any) => {
+                    const email = curr.includes('addPerson') ? values[curr] : null;
+                    if (email) {
+                        prev.push(email);
+                    }
+                    return prev;
+                }, [])
+            }))
         },
 
         validationSchema: Yup.object({

@@ -24,3 +24,16 @@ export async function registerUserAPI (emailFullnamePassword: {email: string, fu
         throw resp.error;
     }
 }
+export type ProjectData = {
+    name: string,
+    shortName: string,
+    emails: string[]
+}
+export async function createProjectAPI (projectData: ProjectData) {
+    const resp = await RestService('POST', '/projects', projectData);
+    if (resp.status === 'OK') {
+        return resp.data;
+    } else {
+        throw resp.error;
+    }
+}

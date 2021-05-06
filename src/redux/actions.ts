@@ -1,5 +1,6 @@
 import {Project} from "./reducers";
 import {toast, ToastOptions} from "react-toastify";
+import {ProjectData} from "./Api";
 
 export type MyAction = {
     type: string,
@@ -63,4 +64,10 @@ export const REGISTER = 'REGISTER';
 export const register = (email: string, fullName: string, password: string) => ({
     type: REGISTER,
     payload: {email, fullName, password}
+});
+
+export const CREATE_PROJECT = 'CREATE_PROJECT';
+export const createProject = (projectData: ProjectData) => ({
+   type: CREATE_PROJECT,
+   payload: projectData
 });

@@ -1,6 +1,7 @@
 import { call, put, takeEvery } from 'redux-saga/effects'
-import {getUserDataAPI, loginUserAPI, registerUserAPI} from "./Api";
+import {createProjectAPI, getUserDataAPI, loginUserAPI, registerUserAPI} from "./Api";
 import {
+    CREATE_PROJECT,
     displayMessage,
     GET_USER_DATA,
     GET_USER_DATA_SUCCESS,
@@ -48,10 +49,23 @@ function* register(action: MyAction): any {
     }
 }
 
+function* createProject(action: MyAction): any {
+    try {
+        yield put(loadingStart());
+        yield call(createProjectAPI, action.payload);
+        yield put(displayMessage('Project created successfully!', {type: 'success'}));
+        yield put(loadingEnd());
+    } catch (ex) {
+        yield put(loadingEnd());
+        yield call(displayMessage, ex, {type: 'error'});
+    }
+}
+
 function* mySaga() {
     yield takeEvery(LOGIN, login);
     yield takeEvery(REGISTER, register);
     yield takeEvery(GET_USER_DATA, getUserData);
+    yield takeEvery(CREATE_PROJECT, createProject);
 }
 
 export default mySaga;
