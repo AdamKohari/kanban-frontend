@@ -1,8 +1,9 @@
 import { call, put, takeEvery } from 'redux-saga/effects'
-import {loginUserAPI, registerUserAPI} from "./Api";
+import {getUserDataAPI, loginUserAPI, registerUserAPI} from "./Api";
 import {
     displayMessage,
     GET_USER_DATA,
+    GET_USER_DATA_SUCCESS,
     loadingEnd,
     loadingStart,
     LOGIN,
@@ -11,13 +12,16 @@ import {
     REGISTER
 } from "./actions";
 
-function* getUserData(action: MyAction): any {
-    // try {
-    //     const user = yield call(getUserDataAPI, action.payload);
-    //     yield put({type: GET_USER_DATA_SUCCESS, payload: user});
-    // } catch (ex) {
-    //     yield put({type: GET_USER_DATA_FAILED, payload: ex.message});
-    // }
+function* getUserData(): any {
+    try {
+        yield put(loadingStart());
+        const userData = yield call(getUserDataAPI);
+        yield put({type: GET_USER_DATA_SUCCESS, payload: userData});
+        yield put(loadingEnd());
+    } catch (ex) {
+        yield put(loadingEnd());
+        yield call(displayMessage, ex, {type: 'error'});
+    }
 }
 
 function* login(action: MyAction): any {
@@ -45,9 +49,9 @@ function* register(action: MyAction): any {
 }
 
 function* mySaga() {
-    yield takeEvery(GET_USER_DATA, getUserData);
     yield takeEvery(LOGIN, login);
     yield takeEvery(REGISTER, register);
+    yield takeEvery(GET_USER_DATA, getUserData);
 }
 
 export default mySaga;

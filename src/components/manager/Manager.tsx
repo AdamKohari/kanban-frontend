@@ -2,11 +2,11 @@ import './Manager.scss';
 import {Button, IconButton, TextField} from "@material-ui/core";
 import {useFormik} from "formik";
 import * as Yup from "yup";
-import {useState, Fragment} from "react";
+import {useState, Fragment, useEffect} from "react";
 import {AddCircleRounded, DeleteRounded} from "@material-ui/icons";
 import {useHistory} from "react-router-dom";
 import {useStore} from "../../redux/UseStore";
-import {projectSelected} from "../../redux/actions";
+import {getUserData, projectSelected} from "../../redux/actions";
 
 export default function Manager() {
     const history = useHistory();
@@ -30,6 +30,10 @@ export default function Manager() {
                 .max(10, 'Short name can be 10 characters long only!')
         })
     });
+
+    useEffect(() => {
+        dispatch(getUserData());
+    }, [dispatch]);
 
     const projectClicked = (project: any) => {
         history.push('/board/' + project.id);

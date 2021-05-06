@@ -43,7 +43,6 @@ export const getUserData = () => ({
     type: GET_USER_DATA
 });
 export const GET_USER_DATA_SUCCESS = 'GET_USER_DATA_SUCCESS';
-export const GET_USER_DATA_FAILED = 'GET_USER_DATA_FAILED';
 
 
 export const LOGIN = 'LOGIN';

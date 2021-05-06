@@ -1,4 +1,13 @@
-import {LOADING_END, LOADING_START, LOGIN_SUCCESS, LOGOUT, MOVE_CARD, MyAction, PROJECT_SELECTED} from "./actions";
+import {
+    GET_USER_DATA_SUCCESS,
+    LOADING_END,
+    LOADING_START,
+    LOGIN_SUCCESS,
+    LOGOUT,
+    MOVE_CARD,
+    MyAction,
+    PROJECT_SELECTED
+} from "./actions";
 
 export type Person = {
     name: string,
@@ -102,6 +111,11 @@ export const kanban = (state = initState, action: MyAction) => {
                     ...state.app,
                     authed: false
                 }
+            }
+        }
+        case GET_USER_DATA_SUCCESS: {
+            return {
+                ...state
             }
         }
         case PROJECT_SELECTED: {
