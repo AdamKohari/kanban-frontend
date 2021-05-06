@@ -52,3 +52,16 @@ export const login = (email: string, password: string) => ({
     payload: {email, password}
 });
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+
+
+export const LOGOUT = 'LOGOUT';
+export const logout = () => ({
+    type: LOGOUT
+});
+
+
+export const REGISTER = 'REGISTER';
+export const register = (email: string, fullName: string, password: string) => ({
+    type: REGISTER,
+    payload: {email, fullName, password}
+});

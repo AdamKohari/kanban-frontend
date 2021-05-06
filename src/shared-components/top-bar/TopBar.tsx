@@ -9,12 +9,13 @@ import GroupIcon from '@material-ui/icons/Group';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { useHistory } from 'react-router-dom';
 import {useStore} from "../../redux/UseStore";
+import {logout} from "../../redux/actions";
 
 type TopBarProps = {
     place: string
 }
 export default function TopBar({place}: TopBarProps) {
-    const [state] = useStore();
+    const [state, dispatch] = useStore();
     const history = useHistory();
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
@@ -36,6 +37,7 @@ export default function TopBar({place}: TopBarProps) {
             case 'LOGOUT': {
                 sessionStorage.clear();
                 history.push('');
+                dispatch(logout());
                 break;
             }
         }

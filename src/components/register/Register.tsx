@@ -4,11 +4,12 @@ import {useFormik} from "formik";
 import * as Yup from "yup";
 import {ArrowBackRounded} from "@material-ui/icons";
 import {useHistory} from "react-router-dom";
+import {useStore} from "../../redux/UseStore";
+import {register} from "../../redux/actions";
 
 export default function Register() {
     const history = useHistory();
-    // TODO Redux
-    const registerLoading = false;
+    const [state, dispatch] = useStore();
 
     const formik = useFormik({
         initialValues: {
@@ -18,7 +19,7 @@ export default function Register() {
         },
 
         onSubmit: (values) => {
-            console.log(values);
+            dispatch(register(values.email, values.fullName, values.password));
         },
 
         validationSchema: Yup.object({
@@ -27,7 +28,7 @@ export default function Register() {
                 .email('Invalid E-mail address'),
             fullName: Yup.string()
                 .required('Full Name is required')
-                .matches(new RegExp('^[a-zAz]{2,} [a-zA-z]{2,}$'),
+                .matches(new RegExp('^[a-zA-z]{2,} [a-zA-z]{2,}$'),
                     'Not a valid full name. Please give your first and last name only!'),
             password: Yup.string()
                 .required('Password is required')
@@ -86,7 +87,7 @@ export default function Register() {
                             {formik.errors.password}
                         </div>}
 
-                        {registerLoading
+                        {state.kanban.app.loading
                             ?   <div className="loading-small">
                                 <CircularProgress variant="indeterminate" size={30} />
                             </div>
