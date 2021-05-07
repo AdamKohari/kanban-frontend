@@ -1,13 +1,13 @@
 import './Board.scss';
 import {Button, Modal} from "@material-ui/core";
 import {DragDropContext, Droppable} from 'react-beautiful-dnd';
-import {useState, Fragment} from "react";
+import {useState, Fragment, useEffect} from "react";
 import CreateCardPopup from "./create-card-popup/CreateCardPopup";
 import CardDetailsPopup from "./card-details-popup/CardDetailsPopup";
 import {useStore} from "../../redux/UseStore";
 import {CardData} from '../../redux/reducers';
 import DroppableCol from "./droppable-col/DroppableCol";
-import {movedCard} from "../../redux/actions";
+import {getBoard, movedCard} from "../../redux/actions";
 
 export default function Board() {
 
@@ -15,6 +15,10 @@ export default function Board() {
     const [newCardModalOpen, setNewCardModalOpen] = useState(false);
     const [cardDetailsModalOpen, setCardDetailsModalOpen] = useState(false);
     const [clickedCardData, setClickedCardData] = useState({} as CardData);
+
+    useEffect(() => {
+        dispatch(getBoard(state.kanban.currentBoardId));
+    }, [dispatch, state.kanban.currentBoardId]);
 
     const onDragEnd = (result: any) => {
       dispatch(movedCard(result.source, result.destination))

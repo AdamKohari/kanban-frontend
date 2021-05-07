@@ -37,3 +37,19 @@ export async function createProjectAPI (projectData: ProjectData) {
         throw resp.error;
     }
 }
+
+export async function getBoardAPI (projectId: string) {
+    const resp = await RestService('GET', `/board?projectId=${projectId}`);
+    if (resp.status === 'OK') {
+        return resp.data;
+    } else {
+        throw resp.error;
+    }
+}
+
+export async function createCardAPI (cardDataProjectId: any) {
+    const resp = await RestService('POST', '/board', cardDataProjectId);
+    if (resp.status !== 'OK') {
+        throw resp.error;
+    }
+}

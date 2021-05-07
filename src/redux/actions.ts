@@ -1,4 +1,4 @@
-import {Project} from "./reducers";
+import {CardData, Project} from "./reducers";
 import {toast, ToastOptions} from "react-toastify";
 import {ProjectData} from "./Api";
 
@@ -70,4 +70,18 @@ export const CREATE_PROJECT = 'CREATE_PROJECT';
 export const createProject = (projectData: ProjectData) => ({
    type: CREATE_PROJECT,
    payload: projectData
+});
+
+export const GET_BOARD = 'GET_BOARD';
+export const getBoard = (projectId: string) => ({
+    type: GET_BOARD,
+    payload: projectId
+});
+
+export const GET_BOARD_SUCCESS = 'GET_BOARD_SUCCESS';
+
+export const CREATE_CARD = 'CREATE_CARD';
+export const createCard = (cardData: CardData, projectId: string) => ({
+   type: CREATE_CARD,
+   payload: {...cardData, projectId}
 });

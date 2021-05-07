@@ -4,21 +4,30 @@ import {useFormik} from "formik";
 import * as Yup from 'yup';
 import {useStore} from "../../../redux/UseStore";
 import {Person} from "../../../redux/reducers";
+import {createCard} from "../../../redux/actions";
 
 type CreateCardPopupProps = {
     close: () => void
 }
 export default function CreateCardPopup({ close }: CreateCardPopupProps) {
-    const [state] = useStore();
+    const getTimeStamp = () => {
+        const date = new Date();
+        const dateAndTime = date.toISOString().split('.')[0].split('T');
+        return dateAndTime[0] + '-' + dateAndTime[1];
+    };
+    const [state, dispatch] = useStore();
     const formik = useFormik({
         initialValues: {
             title: '',
             desc: '',
-            person: ''
+            user: ''
         },
 
         onSubmit: (values) => {
-            console.log(values);
+            dispatch(createCard({
+                ...values,
+                id: state.kanban.currentBoardShortName + '-' + getTimeStamp()
+            }, state.kanban.currentBoardId));
         },
 
         validationSchema: Yup.object({
@@ -26,7 +35,7 @@ export default function CreateCardPopup({ close }: CreateCardPopupProps) {
                 .required('Title is required'),
             desc: Yup.string()
                 .required('Description is required'),
-            person: Yup.string()
+            user: Yup.string()
                 .required('You have to assign this card to someone!')
         })
     });
@@ -66,17 +75,17 @@ export default function CreateCardPopup({ close }: CreateCardPopupProps) {
 
                 <div>Assigned to:</div>
                 <div className="input-field">
-                    <Select variant="outlined" fullWidth={true} value={formik.values.person}
+                    <Select variant="outlined" fullWidth={true} value={formik.values.user}
                             onBlur={formik.handleBlur}
-                            onChange={formik.handleChange} name="person">
+                            onChange={formik.handleChange} name="user">
                         {state.kanban.currentBoard.addedPeople.map((person: Person) => (
-                            <MenuItem key={person.email} value={person.email}>{person.name} ({person.email})</MenuItem>
+                            <MenuItem key={person.email} value={person.fullName}>{person.fullName} ({person.email})</MenuItem>
                         ))}
                     </Select>
                 </div>
-                { formik.touched.person && formik.errors.person &&
+                { formik.touched.user && formik.errors.user &&
                 <div className="validation-error">
-                    {formik.errors.person}
+                    {formik.errors.user}
                 </div>}
 
                 <div className="action-button">

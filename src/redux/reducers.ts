@@ -1,4 +1,5 @@
 import {
+    GET_BOARD_SUCCESS,
     GET_USER_DATA_SUCCESS,
     LOADING_END,
     LOADING_START,
@@ -10,7 +11,8 @@ import {
 } from "./actions";
 
 export type Person = {
-    name: string,
+    userId: string,
+    fullName: string,
     email: string
 }
 export type CardData = {
@@ -22,7 +24,8 @@ export type CardData = {
 export type Project = {
     id: number,
     shortName: string,
-    name: string
+    name: string,
+    addedPeople: Person[]
 }
 export type AppState = {
     kanban: {
@@ -31,7 +34,8 @@ export type AppState = {
             loading: boolean
         }
         currentBoardName: string,
-        currentBoardId: number,
+        currentBoardShortName: string,
+        currentBoardId: string,
         currentBoard: {
             addedPeople: Person[],
             cols: {
@@ -49,20 +53,12 @@ const initState = {
         loading: false
     },
     currentBoardName: '',
-    currentBoardId: 0,
+    currentBoardShortName: '',
+    currentBoardId: '',
     currentBoard: {
-        addedPeople: [
-            {name: 'Adam Kohari', email: 'asd@asd.com'},
-            {name: 'Bela Kiss', email: 'ssdd@kjd.com'}
-        ],
+        addedPeople: [],
         cols: {
-            toDo: [
-                {title: '[BACKEND] Init', id: 'TEST-001', user: 'Adam Kohari', desc: 'Some text'},
-                {title: '[BACKEND] SQL Init', id: 'TEST-002', user: 'Adam Kohari', desc: 'Some text'},
-                {title: '[BACKEND] Endpoints init', id: 'TEST-003', user: 'Adam Kohari', desc: 'Some text'},
-                {title: '[FRONTEND] Connect card create with Redux', id: 'TEST-004', user: 'Adam Kohari', desc: 'Some text'},
-                {title: '[FRONTEND] Test', id: 'TEST-005', user: 'Adam Kohari', desc: 'Some text'}
-            ],
+            toDo: [],
             inProgress: [],
             done: []
         }
@@ -121,7 +117,12 @@ export const kanban = (state = initState, action: MyAction) => {
             return {
               ...state,
                 currentBoardName: project.name,
-                currentBoardId: project.id
+                currentBoardShortName: project.shortName,
+                currentBoardId: project.id,
+                currentBoard: {
+                  ...state.currentBoard,
+                    addedPeople: project.addedPeople
+                }
             };
         }
         case MOVE_CARD: {
@@ -152,6 +153,19 @@ export const kanban = (state = initState, action: MyAction) => {
                     }
                 }
             };
+        }
+        case GET_BOARD_SUCCESS: {
+            return {
+                ...state,
+                currentBoard: {
+                    ...state.currentBoard,
+                    cols: {
+                        toDo: payload.toDo,
+                        inProgress: payload.inProgress,
+                        done: payload.done
+                    }
+                }
+            }
         }
         default: return state;
     }
