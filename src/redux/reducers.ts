@@ -32,7 +32,7 @@ export type AppState = {
         app: {
             authed: boolean,
             loading: boolean
-        }
+        },
         currentBoardName: string,
         currentBoardShortName: string,
         currentBoardId: string,

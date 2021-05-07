@@ -1,4 +1,4 @@
-import {CardData, Project} from "./reducers";
+import {CardData, Person, Project} from "./reducers";
 import {toast, ToastOptions} from "react-toastify";
 import {ProjectData} from "./Api";
 
@@ -81,7 +81,7 @@ export const getBoard = (projectId: string) => ({
 export const GET_BOARD_SUCCESS = 'GET_BOARD_SUCCESS';
 
 export const CREATE_CARD = 'CREATE_CARD';
-export const createCard = (cardData: CardData, projectId: string) => ({
+export const createCard = (cardData: CardData, projectId: string, notifiedPeople: Person[]) => ({
    type: CREATE_CARD,
-   payload: {...cardData, projectId}
+   payload: {...cardData, projectId, notifiedPeople}
 });

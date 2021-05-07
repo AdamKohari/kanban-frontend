@@ -8,6 +8,7 @@ import {useStore} from "../../redux/UseStore";
 import {CardData} from '../../redux/reducers';
 import DroppableCol from "./droppable-col/DroppableCol";
 import {getBoard, movedCard} from "../../redux/actions";
+import {io, Socket} from "socket.io-client";
 
 export default function Board() {
 
@@ -15,13 +16,38 @@ export default function Board() {
     const [newCardModalOpen, setNewCardModalOpen] = useState(false);
     const [cardDetailsModalOpen, setCardDetailsModalOpen] = useState(false);
     const [clickedCardData, setClickedCardData] = useState({} as CardData);
+    const [socket, setSocket] = useState({} as Socket);
 
     useEffect(() => {
         dispatch(getBoard(state.kanban.currentBoardId));
+        const socket = io('ws://localhost:1337');
+        socket.on('connect', () => {
+            console.log('Connected to server');
+            socket.send({
+                messageType: 'CONNECT',
+                message: sessionStorage.getItem('authToken')
+            });
+        });
+        socket.on('message', (message: {messageType: string, message: any}) => {
+            if (message.messageType === 'UPDATE') {
+                dispatch(getBoard(state.kanban.currentBoardId));
+            }
+        });
+        setSocket(socket);
     }, [dispatch, state.kanban.currentBoardId]);
 
     const onDragEnd = (result: any) => {
-      dispatch(movedCard(result.source, result.destination))
+        dispatch(movedCard(result.source, result.destination))
+        socket.send({
+            messageType: 'CARD_MOVED',
+            message: {
+                projectId: state.kanban.currentBoardId,
+                source: result.source,
+                destination: result.destination,
+                id: result.draggableId,
+                notifiedPeople: state.kanban.currentBoard.addedPeople
+            }
+        })
     };
 
     function openDetails(card: CardData) {
