@@ -1,30 +1,8 @@
 import { call, put, takeEvery } from 'redux-saga/effects'
 import {createCardAPI, createProjectAPI, getBoardAPI, getUserDataAPI, loginUserAPI, registerUserAPI} from "./Api";
-import {
-    CREATE_CARD,
-    CREATE_PROJECT,
-    displayMessage, GET_BOARD, GET_BOARD_SUCCESS,
-    GET_USER_DATA,
-    GET_USER_DATA_SUCCESS,
-    loadingEnd,
-    loadingStart,
-    LOGIN,
-    LOGIN_SUCCESS,
-    MyAction,
-    REGISTER
+import {CREATE_CARD, CREATE_PROJECT, displayMessage, GET_BOARD, GET_BOARD_SUCCESS, GET_USER_DATA,
+    GET_USER_DATA_SUCCESS, loadingEnd, loadingStart, LOGIN, LOGIN_SUCCESS, MyAction, REGISTER
 } from "./actions";
-
-function* getUserData(): any {
-    try {
-        yield put(loadingStart());
-        const userData = yield call(getUserDataAPI);
-        yield put({type: GET_USER_DATA_SUCCESS, payload: userData});
-        yield put(loadingEnd());
-    } catch (ex) {
-        yield put(loadingEnd());
-        yield call(displayMessage, ex, {type: 'error'});
-    }
-}
 
 function* login(action: MyAction): any {
     try {
@@ -43,6 +21,18 @@ function* register(action: MyAction): any {
         yield put(loadingStart());
         yield call(registerUserAPI, action.payload);
         yield put(displayMessage('Registered successfully!', {type: 'success'}));
+        yield put(loadingEnd());
+    } catch (ex) {
+        yield put(loadingEnd());
+        yield call(displayMessage, ex, {type: 'error'});
+    }
+}
+
+function* getUserData(): any {
+    try {
+        yield put(loadingStart());
+        const userData = yield call(getUserDataAPI);
+        yield put({type: GET_USER_DATA_SUCCESS, payload: userData});
         yield put(loadingEnd());
     } catch (ex) {
         yield put(loadingEnd());

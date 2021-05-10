@@ -1,13 +1,5 @@
 import RestService from "./RestService";
 
-export async function getUserDataAPI () {
-    const resp = await RestService('GET', '/projects');
-    if (resp.status === 'OK') {
-        return resp.data;
-    } else {
-        throw resp.error;
-    }
-}
 
 export async function loginUserAPI (emailPassword: {email: string, password: string}) {
     const resp = await RestService('POST', '/login', emailPassword);
@@ -24,6 +16,16 @@ export async function registerUserAPI (emailFullnamePassword: {email: string, fu
         throw resp.error;
     }
 }
+
+export async function getUserDataAPI () {
+    const resp = await RestService('GET', '/projects');
+    if (resp.status === 'OK') {
+        return resp.data;
+    } else {
+        throw resp.error;
+    }
+}
+
 export type ProjectData = {
     name: string,
     shortName: string,
