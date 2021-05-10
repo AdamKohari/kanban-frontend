@@ -125,14 +125,12 @@ export const kanban = (state = initState, action: MyAction) => {
             };
         }
         case MOVE_CARD: {
-            const sourceCol = payload.source.droppableId;
+            const sourceCol: ('toDo' | 'inProgress' | 'done') = payload.source.droppableId;
             const sourceIndex = payload.source.index;
-            const destCol = payload.dest.droppableId;
+            const destCol: ('toDo' | 'inProgress' | 'done') = payload.dest.droppableId;
             const destIndex = payload.dest.index;
 
-            // @ts-ignore
             let sourceColCopy = state.currentBoard.cols[sourceCol].slice();
-            // @ts-ignore
             let destColCopy = state.currentBoard.cols[destCol].slice();
 
             if (sourceCol === destCol) {
