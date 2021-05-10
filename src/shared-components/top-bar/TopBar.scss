@@ -1,0 +1,22 @@
+.top-bar {
+  height: 3rem;
+  background-color: #0e7d32;
+  display: flex;
+  align-items: center;
+  .hamburger-button {
+    margin-left: 1.5rem;
+  }
+  h2 {
+    color: white;
+    margin-left: 1.5rem;
+  }
+}
+.hamburger-menu-item {
+  display: flex;
+  align-items: center;
+  font-size: 1.25rem;
+  padding: 0.5rem;
+  svg {
+    margin-right: 12px;
+  }
+}

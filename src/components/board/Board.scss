@@ -1,0 +1,53 @@
+.board-div {
+  padding: 3rem 3rem 1rem 3rem;
+  display: flex;
+  justify-content: center;
+  ::-webkit-scrollbar {
+    width: 0.65rem;
+  }
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: gray;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #0e7d32;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: green;
+  }
+}
+
+.board-content {
+  width: 1024px;
+}
+
+.table-headers {
+  display: flex;
+  color: white;
+  justify-content: space-between;
+  > h1 {
+    width: 18.75rem;
+  }
+  padding-bottom: 1rem;
+  .todo-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 18.75rem;
+  }
+}
+.table-section {
+  display: flex;
+  justify-content: space-between;
+}
+
+.vertical-card-holder {
+  width: 18.75rem;
+  min-height: 50vh;
+  border: 1px solid gray;
+  border-radius: 4px;
+}

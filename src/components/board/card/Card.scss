@@ -1,0 +1,25 @@
+.card {
+  background-color: white;
+  border-radius: 4px;
+  width: 18.75rem;
+  padding: 2rem;
+  cursor: grab;
+  user-select: none;
+
+  .card-title {
+    font-weight: 500;
+    font-size: 1.25rem;
+  }
+
+  .id-and-user {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 2rem;
+    .card-id {
+      color: gray;
+      font-size: 0.75rem;
+      max-width: 70%;
+    }
+  }
+}

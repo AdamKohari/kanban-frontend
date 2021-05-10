@@ -1,0 +1,19 @@
+.create-card-popup {
+  .header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+    div {
+      font-size: 1.75rem;
+      margin-top: -1rem;
+      margin-right: -0.5rem;
+      cursor: pointer;
+    }
+    div:hover {
+      color: #0e7d32;
+    }
+  }
+  .input-field {
+    margin: 1rem 0;
+  }
+}

@@ -1,0 +1,54 @@
+.register {
+  overflow: auto;
+  h1 {
+    text-align: center;
+    margin-top: 3rem;
+    color: white;
+    font-size: 3rem;
+  }
+  .card-cont {
+    margin-top: 1.5rem;
+    display: flex;
+    justify-content: center;
+  }
+  .input-field {
+    display: flex;
+    justify-content: center;
+    margin: 1.5rem 0;
+  }
+  .action-button {
+    display: flex;
+    justify-content: center;
+    padding-top: 0.5rem;
+  }
+  .my-card {
+    width: 40rem;
+    background-color: white;
+    border-radius: 0.5rem;
+    box-shadow: 3px 3px 15px 0 rgba(50, 50, 50, 0.75);
+    padding: 2rem;
+  }
+  .card-cont {
+    display: flex;
+    justify-content: center;
+  }
+  .back-btn {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2rem;
+    margin-top: -1rem;
+    margin-right: -0.5rem;
+    cursor: pointer;
+    svg {
+      height: 2rem;
+      width: 2rem;
+    }
+    span {
+      font-size: 0.75rem;
+      margin-left: 0.5rem;
+    }
+  }
+  .back-btn:hover {
+    color: #0e7d32;
+  }
+}
