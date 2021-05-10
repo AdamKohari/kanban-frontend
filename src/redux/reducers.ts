@@ -1,15 +1,9 @@
-import {
-    GET_BOARD_SUCCESS,
-    GET_USER_DATA_SUCCESS,
-    LOADING_END,
-    LOADING_START,
-    LOGIN_SUCCESS,
-    LOGOUT,
-    MOVE_CARD,
-    MyAction,
-    PROJECT_SELECTED
+import {GET_BOARD_SUCCESS, GET_USER_DATA_SUCCESS, LOADING_END, LOADING_START,
+    LOGIN_SUCCESS, LOGOUT, MOVE_CARD, MyAction, PROJECT_SELECTED
 } from "./actions";
 
+
+// TYPES
 export type Person = {
     userId: string,
     fullName: string,
@@ -47,6 +41,9 @@ export type AppState = {
         ownedProjects: Project[]
     }
 }
+
+
+// INIT STATE
 const initState = {
     app: {
         authed: false,
@@ -66,6 +63,8 @@ const initState = {
     ownedProjects: []
 };
 
+
+// REDUCER
 export const kanban = (state = initState, action: MyAction) => {
     const {type, payload} = action;
 
