@@ -3,6 +3,7 @@ import {createCardAPI, createProjectAPI, getBoardAPI, getUserDataAPI, loginUserA
 import {CREATE_CARD, CREATE_PROJECT, displayMessage, GET_BOARD, GET_BOARD_SUCCESS, GET_USER_DATA,
     GET_USER_DATA_SUCCESS, loadingEnd, loadingStart, LOGIN, LOGIN_SUCCESS, MyAction, REGISTER
 } from "./actions";
+import {humanizeError} from "./humanizeError";
 
 function* login(action: MyAction): any {
     try {
@@ -12,7 +13,7 @@ function* login(action: MyAction): any {
         yield put(loadingEnd());
     } catch (ex) {
         yield put(loadingEnd());
-        yield call(displayMessage, ex, {type: 'error'});
+        yield call(displayMessage, humanizeError(ex), {type: 'error'});
     }
 }
 
