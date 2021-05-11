@@ -5,7 +5,6 @@ import {Menu} from '@material-ui/icons';
 import MenuItem from '@material-ui/core/MenuItem';
 import {useState, MouseEvent} from "react";
 import TableChartIcon from '@material-ui/icons/TableChart';
-import GroupIcon from '@material-ui/icons/Group';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { useHistory } from 'react-router-dom';
 import {useStore} from "../../redux/UseStore";
@@ -29,9 +28,6 @@ export default function TopBar({place}: TopBarProps) {
         switch (button) {
             case 'MANAGER': {
                 history.push('../manager');
-                break;
-            }
-            case 'EDIT_TEAM': {
                 break;
             }
             case 'LOGOUT': {
@@ -71,14 +67,6 @@ export default function TopBar({place}: TopBarProps) {
                     <div className="hamburger-menu-item">
                         <TableChartIcon />
                         My Projects
-                    </div>
-                </MenuItem>}
-
-                { place === 'BOARD' &&
-                <MenuItem onClick={() => handleMenuClose('EDIT_TEAM')}>
-                    <div className="hamburger-menu-item">
-                        <GroupIcon />
-                        Edit Team (Soon)
                     </div>
                 </MenuItem>}
 
