@@ -1,5 +1,5 @@
 import './Manager.scss';
-import {Button, IconButton, TextField} from "@material-ui/core";
+import {Button, IconButton, TextField, Tooltip} from "@material-ui/core";
 import {useFormik} from "formik";
 import * as Yup from "yup";
 import {useState, Fragment, useEffect} from "react";
@@ -7,11 +7,15 @@ import {AddCircleRounded, DeleteRounded} from "@material-ui/icons";
 import {useHistory} from "react-router-dom";
 import {useStore} from "../../redux/UseStore";
 import {createProject, getUserData, projectSelected} from "../../redux/actions";
+import {checkEmailAPI} from "../../redux/Api";
+import ErrorIcon from '@material-ui/icons/Error';
+import InfoIcon from '@material-ui/icons/Info';
 
 export default function Manager() {
     const history = useHistory();
     const [state, dispatch] = useStore();
     const [emailArray, setEmailArray] = useState([0]);
+    const [emailInfo, setEmailInfo] = useState({} as any);
     const formik = useFormik({
         initialValues: {
             name: '',
@@ -57,13 +61,38 @@ export default function Manager() {
         setEmailArray(emailArrayCopy);
     }
 
+    const checkEmail = (event: any) => {
+        const val = event.target.value;
+        const fieldName = event.target.name;
+        if (!val) return;
+
+        checkEmailAPI(val).then(res => {
+            setEmailInfo({
+                ...emailInfo,
+                [fieldName]: res.data
+            })
+        });
+    };
+
     const emailInputs = emailArray.map(id => (
         <div className="input-field" key={id}>
             <TextField name={"addPerson-" + id} label="Add Person by E-mail"
                        onChange={formik.handleChange}
                        fullWidth={true}
-                       onBlur={formik.handleBlur}
+                       onBlur={checkEmail}
                        size="small" variant="outlined"/>
+            { emailInfo['addPerson-' + id] &&
+                <div className="email-valid-icon">
+                    { emailInfo['addPerson-' + id] === 'NO_USER_FOUND'
+                        ? <Tooltip title="No user with this e-mail address">
+                            <ErrorIcon fontSize="small" color="error"/>
+                        </Tooltip>
+                        : <Tooltip title={'User: ' + emailInfo['addPerson-' + id]}>
+                            <InfoIcon fontSize="small" color="action"/>
+                        </Tooltip>
+                    }
+                </div>
+            }
             {id === emailArray.length -1  &&
             <Fragment>
                 <IconButton color="secondary"

@@ -55,3 +55,7 @@ export async function createCardAPI (cardDataProjectId: any) {
         throw resp.error;
     }
 }
+
+export function checkEmailAPI (email: string) {
+    return RestService('POST', '/projects/checkMail', {email: email});
+}
