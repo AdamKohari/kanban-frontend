@@ -1,8 +1,12 @@
 .top-bar {
   height: 3rem;
-  background-color: #0e7d32;
+  // background-color: #0e7d32;
   display: flex;
   align-items: center;
+  position: sticky;
+  top: 0;
+  box-shadow: 0 4px 16px 2px rgba(38, 56, 82, 0.75);
+  background: linear-gradient(0deg, rgba(65,181,102,1) 0%, rgba(23,144,60,1) 50%, rgba(14,125,50,1) 100%);
   .hamburger-button {
     margin-left: 1.5rem;
   }
