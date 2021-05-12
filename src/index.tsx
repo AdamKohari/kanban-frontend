@@ -5,6 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {Provider} from "react-redux";
 import {configureStore, runSaga} from "./redux/store";
+import {defineCustomElements} from "kanban-table-project-details";
 
 const store = configureStore();
 runSaga();
@@ -18,4 +19,5 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
+defineCustomElements();
 reportWebVitals();

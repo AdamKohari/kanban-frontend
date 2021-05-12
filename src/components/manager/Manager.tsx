@@ -6,7 +6,7 @@ import {useState, Fragment, useEffect} from "react";
 import {AddCircleRounded, DeleteRounded} from "@material-ui/icons";
 import {useHistory} from "react-router-dom";
 import {useStore} from "../../redux/UseStore";
-import {createProject, getUserData, projectSelected} from "../../redux/actions";
+import {createProject, getUserData, inspectProject, projectSelected} from "../../redux/actions";
 import {checkEmailAPI} from "../../redux/Api";
 import ErrorIcon from '@material-ui/icons/Error';
 import InfoIcon from '@material-ui/icons/Info';
@@ -52,7 +52,6 @@ export default function Manager() {
     const projectClicked = (project: any) => {
         history.push('/board/' + project.id);
         dispatch(projectSelected(project));
-
     };
 
     const deleteInputRow = (id: number) => {
@@ -109,12 +108,26 @@ export default function Manager() {
     ));
 
     const projects = state.kanban.ownedProjects.map(project => (
-        <div className="project-card" key={project.id}
-             onClick={() => projectClicked(project)}>
-            <div>{project.name}</div>
-            <div className="proj-id">#{project.shortName.toUpperCase()}</div>
+        <div className="project-row">
+            <div className="project-card" key={project.id}
+                 onClick={() => projectClicked(project)}>
+                <div>{project.name}</div>
+                <div className="proj-id">#{project.shortName.toUpperCase()}</div>
+            </div>
+            <div>
+                <Button onClick={() => dispatch(inspectProject(project.id))}>Show Info</Button>
+            </div>
         </div>
     ));
+
+    const authToken = sessionStorage.getItem('authToken');
+    if (state.kanban.app.loading) {
+        return (
+            <div className="manager">
+                <h1 style={{marginTop: '1rem'}}>Loading...</h1>
+            </div>
+        );
+    }
 
     return (
         <div className="manager">
@@ -125,6 +138,12 @@ export default function Manager() {
                     : <div>You haven't created a project yet. Create one below, or ask for invitation to an existing one.</div>
                 }
             </div>
+
+            { state.kanban.inspectedProjectId &&
+            <div style={{marginBottom: '2rem', width: '800px'}}>
+                {/* @ts-ignore */}
+                <project-details auth-token={authToken} project-id={state.kanban.inspectedProjectId}/>
+            </div>}
 
             <h1>OR</h1>
 

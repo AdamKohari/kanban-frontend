@@ -1,4 +1,5 @@
-import {GET_BOARD_SUCCESS, GET_USER_DATA_SUCCESS, LOADING_END, LOADING_START,
+import {
+    GET_BOARD_SUCCESS, GET_USER_DATA_SUCCESS, INSPECT_PROJECT, LOADING_END, LOADING_START,
     LOGIN_SUCCESS, LOGOUT, MOVE_CARD, MyAction, PROJECT_SELECTED
 } from "./actions";
 
@@ -16,7 +17,7 @@ export type CardData = {
     desc: string
 }
 export type Project = {
-    id: number,
+    id: string,
     shortName: string,
     name: string,
     addedPeople: Person[]
@@ -38,7 +39,8 @@ export type AppState = {
                 done: CardData[]
             }
         },
-        ownedProjects: Project[]
+        ownedProjects: Project[],
+        inspectedProjectId: string
     }
 }
 
@@ -60,7 +62,8 @@ const initState = {
             done: []
         }
     },
-    ownedProjects: []
+    ownedProjects: [],
+    inspectedProjectId: ''
 };
 
 
@@ -162,6 +165,12 @@ export const kanban = (state = initState, action: MyAction) => {
                         done: payload.done
                     }
                 }
+            }
+        }
+        case INSPECT_PROJECT: {
+            return {
+                ...state,
+                inspectedProjectId: payload
             }
         }
         default: return state;
