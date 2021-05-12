@@ -70,6 +70,12 @@ export const createProject = (projectData: ProjectData) => ({
     type: CREATE_PROJECT,
     payload: projectData
 });
+
+export const INSPECT_PROJECT = 'INSPECT_PROJECT';
+export const inspectProject = (projectId: string) => ({
+    type: INSPECT_PROJECT,
+    payload: projectId
+});
 ////////////////////////////////////////////////
 
 
