@@ -108,9 +108,8 @@ export default function Manager() {
     ));
 
     const projects = state.kanban.ownedProjects.map(project => (
-        <div className="project-row">
-            <div className="project-card" key={project.id}
-                 onClick={() => projectClicked(project)}>
+        <div className="project-row" key={project.id}>
+            <div className="project-card" onClick={() => projectClicked(project)}>
                 <div>{project.name}</div>
                 <div className="proj-id">#{project.shortName.toUpperCase()}</div>
             </div>

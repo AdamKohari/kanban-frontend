@@ -101,11 +101,7 @@ export const kanban = (state = initState, action: MyAction) => {
         }
         case LOGOUT: {
             return {
-                ...state,
-                app: {
-                    ...state.app,
-                    authed: false
-                }
+                ...initState
             }
         }
         case GET_USER_DATA_SUCCESS: {
@@ -130,8 +126,10 @@ export const kanban = (state = initState, action: MyAction) => {
         case MOVE_CARD: {
             const sourceCol: ('toDo' | 'inProgress' | 'done') = payload.source.droppableId;
             const sourceIndex = payload.source.index;
-            const destCol: ('toDo' | 'inProgress' | 'done') = payload.dest.droppableId;
-            const destIndex = payload.dest.index;
+            const destCol: ('toDo' | 'inProgress' | 'done') = payload.dest?.droppableId;
+            const destIndex = payload.dest?.index;
+
+            if (!destCol || !destIndex) return state;
 
             let sourceColCopy = state.currentBoard.cols[sourceCol].slice();
             let destColCopy = state.currentBoard.cols[destCol].slice();
