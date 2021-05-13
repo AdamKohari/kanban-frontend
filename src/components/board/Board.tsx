@@ -34,6 +34,11 @@ export default function Board() {
             }
         });
         setSocket(socket);
+
+        return () => {
+            socket.close();
+            console.log('Disconnected from server');
+        }
     }, [dispatch, state.kanban.currentBoardId]);
 
     const onDragEnd = (result: any) => {

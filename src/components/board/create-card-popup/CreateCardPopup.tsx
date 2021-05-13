@@ -28,6 +28,7 @@ export default function CreateCardPopup({ close }: CreateCardPopupProps) {
                 ...values,
                 id: state.kanban.currentBoardShortName + '-' + getTimeStamp()
             }, state.kanban.currentBoardId, state.kanban.currentBoard.addedPeople));
+            close();
         },
 
         validationSchema: Yup.object({
