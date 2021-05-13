@@ -46,6 +46,8 @@ function* createProject(action: MyAction): any {
         yield put(loadingStart());
         yield call(createProjectAPI, action.payload);
         yield put(displayMessage('Project created successfully!', {type: 'success'}));
+        const userData = yield call(getUserDataAPI);
+        yield put({type: GET_USER_DATA_SUCCESS, payload: userData});
         yield put(loadingEnd());
     } catch (ex) {
         yield put(loadingEnd());

@@ -124,12 +124,12 @@ export const kanban = (state = initState, action: MyAction) => {
             };
         }
         case MOVE_CARD: {
+            if (!payload.source || !payload.dest) return state;
+
             const sourceCol: ('toDo' | 'inProgress' | 'done') = payload.source.droppableId;
             const sourceIndex = payload.source.index;
-            const destCol: ('toDo' | 'inProgress' | 'done') = payload.dest?.droppableId;
-            const destIndex = payload.dest?.index;
-
-            if (!destCol || !destIndex) return state;
+            const destCol: ('toDo' | 'inProgress' | 'done') = payload.dest.droppableId;
+            const destIndex = payload.dest.index;
 
             let sourceColCopy = state.currentBoard.cols[sourceCol].slice();
             let destColCopy = state.currentBoard.cols[destCol].slice();
