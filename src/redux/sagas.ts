@@ -25,7 +25,7 @@ function* register(action: MyAction): any {
         yield put(loadingEnd());
     } catch (ex) {
         yield put(loadingEnd());
-        yield call(displayMessage, ex, {type: 'error'});
+        yield call(displayMessage, humanizeError(ex), {type: 'error'});
     }
 }
 
@@ -37,7 +37,7 @@ function* getUserData(): any {
         yield put(loadingEnd());
     } catch (ex) {
         yield put(loadingEnd());
-        yield call(displayMessage, ex, {type: 'error'});
+        yield call(displayMessage, humanizeError(ex), {type: 'error'});
     }
 }
 
@@ -51,7 +51,7 @@ function* createProject(action: MyAction): any {
         yield put(loadingEnd());
     } catch (ex) {
         yield put(loadingEnd());
-        yield call(displayMessage, ex, {type: 'error'});
+        yield call(displayMessage, humanizeError(ex), {type: 'error'});
     }
 }
 
@@ -63,7 +63,7 @@ function* getBoard(action: MyAction): any {
         yield put(loadingEnd());
     } catch (ex) {
         yield put(loadingEnd());
-        yield call(displayMessage, ex, {type: 'error'});
+        yield call(displayMessage, humanizeError(ex), {type: 'error'});
     }
 }
 
@@ -75,7 +75,7 @@ function* createCard(action: MyAction): any {
         yield put(loadingEnd());
     } catch (ex) {
         yield put(loadingEnd());
-        yield call(displayMessage, ex, {type: 'error'});
+        yield call(displayMessage, humanizeError(ex), {type: 'error'});
     }
 }
 
